@@ -1,0 +1,98 @@
+name: Platform Build
+
+on: [push, pull_request]
+
+jobs:
+  android:
+    name: Cordova-Android Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Node Setup
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+
+      - name: Java Setup
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+
+      - name: Environment Information
+        run: |
+          node --version
+          npm --version
+          gradle --version
+
+      - name: NPM Install
+        run: |
+          npm i
+        env:
+          CI: true
+
+      # This will copy the plugins
+      - name: Cordova Prepare
+        run: |
+          npx cordova prepare
+        env:
+        CI: true
+
+      # This will copy the plugins
+      - name: Cordova Platform Install
+        run: |
+          npx cordova platform add android
+        env:
+        CI: true
+
+      # This will copy the plugins
+      - name: Cordova Build
+        run: |
+          npx cordova build android
+        env:
+        CI: true
+
+  ios:
+    name: iOS Build
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Node Setup
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+
+      - name: Environment Information
+        run: |
+          node --version
+          npm --version
+
+      - name: NPM Install
+        run: |
+          npm i
+        env:
+          CI: true
+
+      # This will copy the plugins
+      - name: Cordova Prepare
+        run: |
+          npx cordova prepare
+        env:
+        CI: true
+
+      # This will copy the plugins
+      - name: Cordova Platform Install
+        run: |
+          npx cordova platform add ios
+        env:
+        CI: true
+
+      # This will copy the plugins
+      - name: Cordova Build
+        run: |
+          npx cordova build ios
+        env:
+        CI: true
