@@ -32,21 +32,21 @@ jobs:
         env:
           CI: true
 
-      # This will copy the plugins
-      - name: Cordova Prepare
-        run: |
-          npx cordova prepare
-        env:
-          CI: true
-
-      # This will copy the plugins
+      # Add platform
       - name: Cordova Platform Install
         run: |
           npx cordova platform add android
         env:
           CI: true
 
-      # This will copy the plugins
+      # Copy plugins
+      - name: Cordova Prepare
+        run: |
+          npx cordova prepare
+        env:
+          CI: true
+
+      # Build Project
       - name: Cordova Build
         run: |
           npx cordova build android
@@ -76,21 +76,21 @@ jobs:
         env:
           CI: true
 
-      # This will copy the plugins
-      - name: Cordova Prepare
-        run: |
-          npx cordova prepare
-        env:
-          CI: true
-
-      # This will copy the plugins
+      # Add platform
       - name: Cordova Platform Install
         run: |
           npx cordova platform add ios
         env:
           CI: true
 
-      # This will copy the plugins
+      # Copy plugins
+      - name: Cordova Prepare
+        run: |
+          npx cordova prepare
+        env:
+          CI: true
+
+      # Build project
       - name: Cordova Build
         run: |
           npx cordova build ios
